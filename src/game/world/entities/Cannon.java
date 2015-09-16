@@ -1,5 +1,7 @@
 package game.world.entities;
 
+import game.Resources;
+
 /**
  * Controls entity firing, reaming delay and bullet entity generation.
  */
@@ -51,4 +53,8 @@ public class Cannon {
         if (rearmingDelay >0) rearmingDelay--;
     }
 
+    public int maximumRange() {
+        EntityTypeInfo bulletInfo = Resources.ofClass(Bullet.class);
+        return bulletInfo.maxRange;
+    }
 }

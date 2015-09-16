@@ -37,7 +37,7 @@ public class ServerTask implements Runnable {
     private final BotInfoManager botInfoManager = new BotInfoManager();         // used to manage AI players state
     private final DatagramChannel channel;
     private final RateCounter bandwidthCounter = new RateCounter();
-    private volatile int botCount = 0;                      // number if computer players
+    private volatile int maxBoxCount = 0;                   // number if computer players
     private volatile boolean running;
     private long timeOfStart;                               // time of server start-up, used for calculating uptime
     private double logicTime;                               // board virtual time
@@ -51,12 +51,12 @@ public class ServerTask implements Runnable {
         board = Board.fromResource(mapResourceName);        // loading map specified
     }
 
-    public int getBotCount() {
-        return botCount;
+    public int getMaxBoxCount() {
+        return maxBoxCount;
     }
 
-    public ServerTask setBotCount(int botCount) {
-        this.botCount = botCount;
+    public ServerTask setMaxBoxCount(int maxBoxCount) {
+        this.maxBoxCount = maxBoxCount;
         return this;
     }
 
@@ -217,7 +217,7 @@ public class ServerTask implements Runnable {
      * Ensures AI bots are spawned accordingly.
      */
     private void checkEnemiesSpawned() {
-        while (botInfoManager.getBotCount() < botCount) {
+        while (botInfoManager.getBotCount() < maxBoxCount) {
             botInfoManager.register(new BotInfo("Bot %d" + botInfoManager.getBotCount()));
         }
 

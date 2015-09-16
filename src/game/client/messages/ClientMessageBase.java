@@ -61,7 +61,6 @@ public abstract class ClientMessageBase {
     protected static ByteBuffer make(ClientMessageType messageType, Object... args) {
 
         ByteBuffer temp = ByteBuffer.allocate(SEND_BUFFER_MAX_SIZE);
-        ;
 
         temp.putInt(messageType.ordinal());
 

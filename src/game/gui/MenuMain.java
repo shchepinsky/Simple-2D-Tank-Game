@@ -71,6 +71,7 @@ public class MenuMain extends MenuBase {
             getMenuManager().switchTo(menuConnecting);
 
             Engine.startLoopback(DEFAULT_PLAYER_NAME, DEFAULT_MAP_RESOURCE_NAME);
+            Engine.getServer().setMaxBoxCount(4);
 
             Engine.getClient().onTryToConnectProgress = progress -> Platform.runLater( () -> {
                 menuConnecting.setProgress(progress);

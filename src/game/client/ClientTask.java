@@ -27,7 +27,6 @@ import static java.lang.Math.max;
 /**
  * Client-side class, board using network state updates.
  * Read-accessed by rendering thread and write-accessed by own thread.
- * TODO: Review synchronization required.
  */
 public class ClientTask implements Runnable {
     private final DatagramChannel channel;
@@ -339,8 +338,9 @@ public class ClientTask implements Runnable {
      */
     private ByteBuffer processIncomingPackets() {
         // process incoming message
-        // TODO: for performace reasons it may be better to keep buffer allocated and just rewinding it before net read
-        // and flipping after read is complete
+        // for performance reasons it may be better to keep buffer allocated and just rewinding it before net read
+        // and flipping after read is complete. For simplicity it is left out as is.
+
         ByteBuffer buffer = ByteBuffer.allocate(1024);      // should be enough space for reading any server message
 
         SocketAddress source = null;

@@ -46,13 +46,13 @@ public class MenuGameScreen extends MenuBase {
 
         switch (event.getCode()) {
             case INSERT: {
-                int botCount = Engine.getServer().getBotCount();
-                Engine.getServer().setBotCount( botCount + 1 );
+                int botCount = Engine.getServer().getMaxBoxCount();
+                Engine.getServer().setMaxBoxCount(botCount + 1);
                 break;
             }
             case DELETE: {
-                int botCount = Engine.getServer().getBotCount();
-                Engine.getServer().setBotCount( botCount > 0 ? botCount - 1 : 0 );
+                int botCount = Engine.getServer().getMaxBoxCount();
+                Engine.getServer().setMaxBoxCount(botCount > 0 ? botCount - 1 : 0);
                 break;
             }
             case BACK_QUOTE: {

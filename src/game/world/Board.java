@@ -16,7 +16,7 @@ import static game.util.Debug.log;
 /**
  * Game board class, manages entities and map accordingly to external time source.
  * Read-accessed by rendering thread and write-accessed by client thread.
- * TODO: Review synchronization required when ClientTask is interacting with this.
+ * Review synchronization required when ClientTask is interacting with this.
  */
 public class Board {
 

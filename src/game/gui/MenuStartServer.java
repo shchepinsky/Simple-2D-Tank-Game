@@ -27,8 +27,7 @@ public class MenuStartServer extends MenuBase {
 
     private void startServerButtonAction(ActionEvent actionEvent) {
         getMenuManager().switchTo(getMenuManager().menuGameScreen);
-        // TODO: multi-player start
-
+        // multi-player start can be done here
     }
 
     @Override
@@ -64,11 +63,11 @@ public class MenuStartServer extends MenuBase {
         // simple validation - start button is disabled if join checked but no name entered
         startServerButton.disableProperty().bind(
                 joinThisServerCheckBox.selectedProperty().and(
-                        playerName.textProperty().isEmpty())
+                        playerName.textProperty().isEmpty()
+                )
         );
 
         startServerButton.setOnAction(this::startServerButtonAction);
-        //^^^ back and start buttons
 
         // grid pane
         GridPane gridPane = new GridPane();

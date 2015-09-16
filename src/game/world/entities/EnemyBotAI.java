@@ -225,7 +225,7 @@ public class EnemyBotAI {
         Set<BoardCell> lineOfFire = new HashSet<>();
 
         double heading = controlled.getHeading();
-        int distance = 1000; // TODO: this should be obtained from controlled.getCannon().fireRange() and bullet type info
+        int distance = controlled.getCannon().maximumRange();
         Point muzzlePoint = controlled.getCannon().muzzlePoint();
 
         for (int n = 0; n < distance; n = n + BoardCell.CELL_SIZE * 2) {

@@ -30,12 +30,14 @@ public enum Renderer {
     private boolean renderEntityInfoVisible = false;
 
     public static void render(GraphicsContext gc) {
-        // TODO: try to implement rendering to different layers
+        // Different layers should be implemented to make some kind of Z-buffer:
         // 1. map
         // 2. path points
         // 3. entities
         // 4. explosions
         // 5. entity info & console
+        //
+        // ...but for simplicity it left as is :)
 
         ViewPort.INSTANCE.setBoundingBox(0, 0,
                 Engine.getClient().getBoard().getWidthInPixels(),
@@ -60,7 +62,7 @@ public enum Renderer {
     }
 
     private static void renderEntities(GraphicsContext gc) {
-        // TODO: change back to getClient() after debugging AI
+        // while debugging it is possible to render entities from local server - just change getClient() to getServer()
         Collection<Entity> entities = Engine.getClient().getBoard().getActiveEntitiesUnmodifiable();
 
         for (Entity entity : entities) {
@@ -268,7 +270,7 @@ public enum Renderer {
             int created = Engine.getServer().getBoard().getNewEntitiesUnmodifiable().size();
             console.add(String.format("SERVER: total entities: %d", active + inactive));
             console.add(String.format("SERVER: active = %d, inactive = %d, created = %d", active, inactive, created));
-            console.add(String.format("SERVER: AI bot players = %d", Engine.getServer().getBotCount()));
+            console.add(String.format("SERVER: AI bot players = %d", Engine.getServer().getMaxBoxCount()));
         }
 
         if (Engine.getClient() != null) {

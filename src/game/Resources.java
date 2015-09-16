@@ -43,7 +43,6 @@ public class Resources {
 
                     ImageFrameInfo imageInfo = ImageFrameInfo.fromLine(line);
 
-                    // TODO: make images hosted in local fields instead of Resource.map
                     Image image = Resources.loadImage(imageInfo.getImageID(), "/" + imageInfo.getFileName());
 
                     // validate size

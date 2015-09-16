@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.util.UUID;
 
 public class Explosion extends PositionableEntity implements Visible {
-    private final Animation animation = new Animation(getTypeInfo().imageInfo);;
+    private final Animation animation = new Animation(getTypeInfo().imageInfo);
 
     public Explosion(UUID ownerUniqueID, Board board) {
         super(ownerUniqueID, board);
