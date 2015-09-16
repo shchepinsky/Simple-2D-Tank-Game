@@ -1,0 +1,18 @@
+;
+; ID:       unique name of Class this data applies to
+; imageID:  unique name of imageFrameInfo when alive
+; hits:     0..127
+; speed:    forward, reverse
+; turn:     turning speed
+; accel:    forward, reverse
+; bounds:   x1, y1, x2, y2
+; lifetime: amount of life time, or -1 if infinite
+; range:    maximum distance entity can travel before self-destructing. Used for projectiles.
+;
+; class         : imageID           : hits  : speed     : turn  : accel     : bounds        : lifetime  : range
+Tank            : tank-green        : 100   : 80,60     : 180   : 80, 320   : 4, 4, 27, 27  : -1        : -1
+Enemy           : tank-red          : 100   : 80,60     : 180   : 80, 320   : 3, 3, 28, 28  : -1        : -1
+Bullet          : tank-bullet       : 1     : 400,0     : 0     : 0, 0      : 4, 4, 8, 8    : -1        : 400
+SmallExplosion  : explosion-small   : 1     : 0, 0      : 0     : 0, 0      : 0, 0, 0, 0    : -1        : -1
+MediumExplosion : explosion-medium  : 1     : 0, 0      : 0     : 0, 0      : 0, 0, 0, 0    : -1        : -1
+SpecialExplosion: explosion-special : 1     : 0, 0      : 0     : 0, 0      : 0, 0, 0, 0    : -1        : -1

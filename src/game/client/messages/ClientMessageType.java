@@ -1,0 +1,12 @@
+package game.client.messages;
+
+public enum ClientMessageType {
+    CLIENT_JOIN_REQUEST,
+    CLIENT_EXIT_REQUEST,
+    CLIENT_CONFIRM_READY,
+    CLIENT_PAUSE_TOGGLE_REQUEST,
+    CLIENT_WORLD_LINE_REQUEST,
+    CLIENT_INPUT,
+    CLIENT_SELF_DESTRUCT,
+}
+

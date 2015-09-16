@@ -1,0 +1,63 @@
+.vbox, .gridpane {
+    -fx-padding: 8;
+}
+
+.vbox {
+    -fx-spacing: 8;
+}
+
+.gridpane {
+    -fx-hgap: 8; -fx-vgap: 8;
+}
+
+.vbox#shadowed, .gridpane#shadowed {
+    -fx-border-color: black;
+    -fx-border-radius: 4;
+
+    -fx-background-color: wheat;
+
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(three-pass-box, black, 8, 0, 0, 0);
+}
+
+.label#title-small .text {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+
+    -fx-stroke: beige;
+    -fx-stroke-width: 1;
+
+    -fx-fill: darkred;
+}
+
+.label#title .text {
+    -fx-font-size: 48;
+    -fx-font-weight: bold;
+
+    -fx-stroke: beige;
+    -fx-stroke-width: 2;
+
+    -fx-fill: darkred;
+    -fx-effect: dropshadow(three-pass-box, yellow, 16, 0, 0, 0);
+}
+
+.text-field, .combo-box, .choice-box, .button {
+    -fx-pref-width: 100;
+    -fx-pref-height: 16;
+}
+
+.button {
+    -fx-pref-width: 150;
+}
+
+.button:hover, .combo-box:hover, .choice-box:hover, .list-view:hover {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.button:hover .text {
+/*
+    -fx-effect: dropshadow(three-pass-box, gray, 3, 0, 0, 0);
+*/
+    -fx-fill: black;
+}

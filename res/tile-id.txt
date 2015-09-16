@@ -1,0 +1,14 @@
+; block move - 0.0 can be moved without penalty, while 1.0 means obstacle, that can't be moved on
+; block shoot - probability of shoot being blocked by obstacle from passing
+;
+; ID    : imageInfoID   : frameID   : block move    : block shoot   : flags
+0       : grass         : 0         : 0.0           : 0.0           :
+1       : grass         : 1         : 0.0           : 0.0           :
+2       : grass         : 2         : 0.0           : 0.0           :
+3       : grass         : 3         : 0.0           : 0.0           :
+4       : grass         : 4         : 0.0           : 0.0           :
+5       : grass         : 5         : 0.0           : 0.0           :
+6       : grass         : 6         : 0.0           : 0.0           :
+7       : grass         : 7         : 0.0           : 0.0           :
+C       : concrete      : 0         : 0.0           : 0.0           :
+W       : water         : 0         : 1.0           : 0.0           :

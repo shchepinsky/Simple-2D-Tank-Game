@@ -1,0 +1,20 @@
+; block move - 0.0 can be moved without penalty, while 1.0 means obstacle, that can't be moved on
+; block shoot - probability of shoot being blocked by obstacle from passing
+;
+; ID = 0 is default overlay that does nothing
+;
+; bounds - coordinates of obstacles in cell
+;
+; flags:
+; b - bridge, will allow movement even if underlying ground does not.
+;
+; ID    : imageInfoID           : frame : block move    : block shoot   : flags   : bounds
+
+0       :                       : 0     : 0.0           : 0.0           : [     ] : 0,0,0,0
+
+b       : bridge-vr             : 0     : 0.0           : 0.0           : [b    ] : 0,0,0,0
+B       : bridge-hr             : 0     : 0.0           : 0.0           : [b    ] : 0,0,0,0
+
++       : wall-concrete-corner  : 0     : 1.0           : 1.0           : [     ] : 1,1,31,31
+|       : wall-concrete-vr      : 0     : 1.0           : 1.0           : [     ] : 8,0,24,31
+-       : wall-concrete-hr      : 0     : 1.0           : 1.0           : [     ] : 0,8,31,24

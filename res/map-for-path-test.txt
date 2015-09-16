@@ -1,0 +1,13 @@
+; empty lines and lines starting with semicolon or dash # are completely ignored
+; first row and col are rulers for editor and are ignored
+; first character in cell is overlay ID, second character in cell is ground ID
+; size in rows, cols
+
+size: 3 : 3
+spawn: 0,0 : 2,2
+
+map:
+XY 00 01 02
+00 00 00 00
+01 00 00 00
+02 00 00 00

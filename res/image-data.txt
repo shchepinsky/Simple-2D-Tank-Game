@@ -1,0 +1,44 @@
+; This is global graphic resource info file. Lines starting from semicolon ; are ignored as comments.
+;
+; Column description.
+; imageType column interpreted as following:
+; tile      An one ore more tiles of given size.
+; actor     Image with rotation frames in columns and animation frames in rows.
+; effect    Entire image is used for sequential animation.
+;
+; frames column interpreted as following:
+; for tile  number of alternative image variants.
+; for actor first digit is number of rotation frames, seconds number of animations
+; for effect first digit is number of total animation frames, second is frames per second, third is loop flag
+;
+; ground tiles, have no rotations
+; name              : file name                 : frame_w   : frame_h   : imageType : frames
+
+grass               : grass.png                 : 32        : 32        : tile      : 8
+concrete            : concrete.png              : 32        : 32        : tile      : 1
+water               : water.png                 : 32        : 32        : tile      : 1
+
+; overlay tiles, placed on ground
+; name              : file name                 : frame_w   : frame_h   : imageType : frames
+bridge-vr           : bridge-vr.png             : 32        : 32        : tile      : 1
+bridge-hr           : bridge-hr.png             : 32        : 32        : tile      : 1
+wall-wood-vr        : wall-wood-vr.png          : 32        : 32        : tile      : 1
+wall-wood-hr        : wall-wood-hr.png          : 32        : 32        : tile      : 1
+wall-wood-corner    : wall-wood-corner.png      : 32        : 32        : tile      : 1
+wall-concrete-vr    : wall-concrete-vr.png      : 32        : 32        : tile      : 1
+wall-concrete-hr    : wall-concrete-hr.png      : 32        : 32        : tile      : 1
+wall-concrete-corner: wall-concrete-corner.png  : 32        : 32        : tile      : 1
+
+; player units
+; name              : file name                 : frame_w   : frame_h   : imageType : frames
+tank-red            : tank-red.png              : 32        : 32        : actor     : 4, 7, 30, true
+tank-green          : tank-green.png            : 32        : 32        : actor     : 4, 7, 30, true
+
+; effects
+tank-bullet         : tank-bullet.png           : 12        : 12        : effect    : 1, 1, true
+explosion-small     : expl-12x12x7.png          : 12        : 12        : effect    : 7, 10, false
+explosion-medium    : expl-40x40x7.png          : 40        : 40        : effect    : 7, 10, false
+explosion-special   : expl-100x100x8.png        : 100       : 100       : effect    : 8, 12, false
+
+; misc stuff
+waypoint            : waypoint.png              : 32        : 32        : effect    : 1, 1, true
