@@ -2,7 +2,9 @@ package game.world.entities;
 
 import game.graphics.Animation;
 
-// can be visually rendered
+/**
+ * An entity that can be rendered.
+ */
 public interface Visible {
     Animation getAnimation();
 }

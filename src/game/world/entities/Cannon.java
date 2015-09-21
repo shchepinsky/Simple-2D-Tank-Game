@@ -8,7 +8,8 @@ import game.Resources;
 public class Cannon {
     private final Positionable ownerEntity;
 
-    private final double MAX_FIRE_RATE = 0.5;               // be careful, more than 100 can generate too much packets!
+    // be careful with fire rate, 100 can generate too much packets!
+    private final double MAX_FIRE_RATE = 0.5;
 
     private double rearmingDelay = 1000 / MAX_FIRE_RATE;
 
@@ -27,10 +28,11 @@ public class Cannon {
 
         Point pos = muzzlePoint();
 
-        bullet.setParentKey(ownerEntity.getKey());          // set parent to exclude self from collision detection
-        bullet.setPos(pos);                                 // calculated position
-        bullet.setHeading(heading);                         // orientation as requested
-        bullet.setOrderedHeading(heading);                  //
+        // set parent to exclude self from collision detection
+        bullet.setParentKey(ownerEntity.getKey());
+        bullet.setPos(pos);
+        bullet.setHeading(heading);
+        bullet.setOrderedHeading(heading);
 
         ownerEntity.getBoard().registerEntity(bullet);
 

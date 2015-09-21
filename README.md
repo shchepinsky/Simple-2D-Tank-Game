@@ -36,3 +36,4 @@ is slightly late than client's time being locally updated. Possible fix: take mo
 updating from network.
 3. AI players targeting each other sometimes stop in diagonal cells waiting for target to move. This results in mutual
 waiting so no one moves. Probably can be fixed by introducing random decisions to AI, but currently this is left out.
+4. AI players sometimes try to shoot through walls. This is a bug in makeFireDecision method.

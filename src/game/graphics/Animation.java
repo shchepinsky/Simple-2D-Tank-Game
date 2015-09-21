@@ -1,5 +1,8 @@
 package game.graphics;
 
+/**
+ * Manages animation frame updates.
+ */
 public class Animation {
     private final ImageFrameInfo imageInfo;
     private double delay;
@@ -48,7 +51,7 @@ public class Animation {
 
     }
 
-    public boolean isPaused() {
+    private boolean isPaused() {
         return paused;
     }
 

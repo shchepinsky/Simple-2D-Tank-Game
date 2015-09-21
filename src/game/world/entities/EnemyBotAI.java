@@ -12,7 +12,10 @@ import java.util.Set;
 import static game.util.Debug.log;
 import static java.lang.Math.*;
 
-public class EnemyBotAI {
+/**
+ * Some sort of primitive AI logic: it can find targets, move and fire.
+ */
+class EnemyBotAI {
     private final int MAX_TARGET_DECISION_TIMEOUT = 1000;
     private final int MAX_PURSUE_DECISION_TIMEOUT = 1000;
     private final int MAX_ROAMING_DECISION_TIMEOUT = 5000;
@@ -29,7 +32,7 @@ public class EnemyBotAI {
 
     private short targetKey;
 
-    private Random random = new Random();
+    private final Random random = new Random();
     private PathList<BoardCell> path = new PathList<>();
 
     public EnemyBotAI(Board board, Tank controlled) {
@@ -49,8 +52,10 @@ public class EnemyBotAI {
     public void update() {
         // 1. search for target in range
         if (targetDecisionTimeout.occurred()) {
-            makeTargetDecision();                           // recalculate target decision
-            targetDecisionTimeout.reset();                  // reset timeout
+            // recalculate target decision
+            // reset timeout
+            makeTargetDecision();
+            targetDecisionTimeout.reset();
         }
 
         if (hasTarget() && pursueDecisionTimeout.occurred()) {
@@ -96,7 +101,7 @@ public class EnemyBotAI {
 
     }
 
-    public boolean alignedInCell(BoardCell cell) {
+    private boolean alignedInCell(BoardCell cell) {
         double x = controlled.getX();
         double y = controlled.getY();
         double cx = cell.getCenterX();
@@ -118,23 +123,27 @@ public class EnemyBotAI {
 
         if (path.isEmpty()) return;
 
-        if (path.size() < 3) {                             // destination too close
-            path.clear();                                   // discard path
+        if (path.size() < 3) {
+            // destination too close - discard path
+            path.clear();
             return;
         }
 
-        if (path.size() > 1) {                              // remove last step - we don't want to take place of target
+        if (path.size() > 1) {
+            // remove last step - we don't want to take place of target
             path.remove(path.size() - 1);
         }
 
-        path.add(0, controlled.getCell());                  // add our current as first board cell to align with
+        // add our current as first board cell to align with
+        path.add(0, controlled.getCell());
 
     }
 
     private boolean makeTurnDecision() {
         if (path.isEmpty()) {
 
-            if (hasTarget()) {                              // turn tu target if any
+            if (hasTarget()) {
+                // turn to target if any
                 double heading = controlled.getHeadingTo(getTarget());
                 controlled.setOrderedHeading(round(heading / 90) * 90);
             }
@@ -264,16 +273,19 @@ public class EnemyBotAI {
     }
 
     private void makeTargetDecision() {
+
         targetKey = EntityBase.INVALID_UNIQUE_ID;
 
-        final int TARGET_SEARCH_CELLS = 8; // search in 8-cell radius
+        // search in 8-cell radius
+        final int SEARCH_CELLS = 8;
+        final int TARGET_RADIUS = BoardCell.CELL_SIZE * SEARCH_CELLS;
 
         double closestDistance = Integer.MAX_VALUE;
         double targetDistance;
 
         Tank closestTarget = null;
 
-        List<Entity> potentialTargetsList = board.getEntitiesAround(controlled.getPos(), TARGET_SEARCH_CELLS);
+        List<Entity> potentialTargetsList = board.getEntitiesAround(controlled.getPos(), SEARCH_CELLS);
         for (Entity entity : potentialTargetsList) {
             if (!(entity instanceof Tank) || entity == controlled) continue;
 
@@ -286,13 +298,13 @@ public class EnemyBotAI {
             }
         }
 
-        if (closestTarget == null) {
-            log("Target decision: no target found");
-        } else if (controlled.getDistanceTo(closestTarget) < BoardCell.CELL_SIZE * TARGET_SEARCH_CELLS) {
+        //
+        if (closestTarget != null && controlled.getDistanceTo(closestTarget) < TARGET_RADIUS) {
             targetKey = closestTarget.getKey();
-            log(String.format("Target decision: selected target in %s", closestTarget.getCell()));
-        } else {
-            log("Target decision: target our of range");
+
+            if (closestTarget != getTarget()) {
+                log(String.format("AI of %s new target decision made: %s", controlled, closestTarget));
+            }
         }
 
     }

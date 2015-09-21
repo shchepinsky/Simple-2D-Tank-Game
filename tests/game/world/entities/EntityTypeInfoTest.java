@@ -33,7 +33,7 @@ public class EntityTypeInfoTest {
         Collection<Entity> entities= board.getActiveEntitiesUnmodifiable();
 
         for (Entity entity : entities) {
-            board.removeActiveEntity(entity);
+            board.removeActiveEntity(entity.getKey());
         }
 
         // write states to message

@@ -1,13 +1,11 @@
 package game.server;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-public final class ClientInfoManager {
+final class ClientInfoManager {
 
     private final HashMap<String, ClientInfo> nameToInfoMap;              // name to ClientInfo map
     private final HashMap<UUID, ClientInfo> uniqueIDToInfoMap;            // UUID to ClientInfo map
@@ -39,7 +37,7 @@ public final class ClientInfoManager {
         return addressToInfoMap.get(address) != null;
     }
 
-    public boolean isRegistered(UUID uniqueID) {
+    public  boolean isRegistered(UUID uniqueID) {
         return uniqueIDToInfoMap.get(uniqueID) != null;
     }
 

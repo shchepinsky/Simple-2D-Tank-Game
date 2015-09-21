@@ -77,7 +77,7 @@ public class ClientInfoManagerTest {
         manager.remove(clientInfo1.uniqueID);
 
         assertFalse(manager.isRegistered(name1));
-        assertFalse(manager.isRegistered(clientInfo1.uniqueID));
+        assertFalse(manager.isRegistered(clientInfo1.uniqueID.toString()));
     }
 
     @Test

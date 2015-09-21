@@ -1,6 +1,8 @@
 package game.world.entities;
 
-// can be destroyed by damage
+/**
+ * An entity that acn be destroyed.
+ */
 public interface Destructible {
     boolean isDead();
     byte getHitPoints();

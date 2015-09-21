@@ -51,7 +51,7 @@ public class ClientTask implements Runnable {
     private InputFireOrder fireOrder = InputFireOrder.NONE;
     private InputMoveOrder moveOrder = InputMoveOrder.STOP;
     private short clientKey;                                // two bytes - client identifier in network operations
-    private TimeFlow timeFlow = new TimeFlow();             // TimeFlow is synced to server time and running in between
+    private final TimeFlow timeFlow = new TimeFlow();       // TimeFlow is synced to server time and running in between
 
     /**
      * Constructs client with given parameters.
@@ -119,7 +119,7 @@ public class ClientTask implements Runnable {
         this.turnOrder = turnOrder;
     }
 
-    public synchronized String getClientName() {
+    private synchronized String getClientName() {
         return clientName;
     }
 
@@ -255,15 +255,19 @@ public class ClientTask implements Runnable {
      * </ol>
      */
     private void runTryingToConnectFetchBoard() {
-        log("fetching initial board data from server...");    // log this state
-        ArrayList<String> lines = new ArrayList<>();            // buffer to store received map string
-        int linesTotal = 0;                            // total lines from server
-        Timeout fetchMapTimeout = new Timeout(5000);            // stage timeout
+        log("fetching initial board data from server...");
+
+        // buffer to store received map string
+        ArrayList<String> lines = new ArrayList<>();
+        int linesTotal = 0;
+
+        // setup stage timeout
+        Timeout fetchMapTimeout = new Timeout(5000);
 
         while (isRunning()) try {
-            if (fetchMapTimeout.occurred()) {                   // handle timeout fetching board map
-                setState(ClientState.TRYING_TO_DISCONNECT);     // set state to graceful disconnect
-                log("Timeout fetching board from server");    // log & return
+            if (fetchMapTimeout.occurred()) {
+                setState(ClientState.TRYING_TO_DISCONNECT);
+                log("Timeout fetching board from server");
                 return;
             }
 
@@ -275,25 +279,29 @@ public class ClientTask implements Runnable {
             ByteBuffer buffer = null;
 
             while (!timeoutForLine.occurred() && buffer == null) try {
-                Thread.sleep(10);                       // wait some time for network to process
-                buffer = processIncomingPackets();    // try to get response from server
+                // wait some time for network to process amd try to read buffer
+                Thread.sleep(10);
+                buffer = processIncomingPackets();
             } catch (InterruptedException ignored) {
             }   // sleep interruption is ignored
 
             if (buffer != null) try {
                 switch (ServerMessageBase.getTypeFromBuffer(buffer)) {
                     case SHUTDOWN_NOTIFY: {
-                        setState(ClientState.DISCONNECTED);             // oops, server is shutting down - set state
-                        return;                                         // and exit immediately
+                        // oops, server is shutting down - set state and exit immediately
+                        setState(ClientState.DISCONNECTED);
+                        return;
                     }
                     case CLIENT_FETCH_BOARD_REPLY: {
                         ClientBoardLineReply boardLineReply = new ClientBoardLineReply(buffer);
 
-                        if (lines.size() == boardLineReply.lineIndex) { // check if index matches our request
-                            linesTotal = boardLineReply.totalCount;     // store total line count
-                            lines.add(boardLineReply.line);             // add current line to raw list
+                        // check if index matches our request
+                        if (lines.size() == boardLineReply.lineIndex) {
+                            linesTotal = boardLineReply.totalCount;
+                            lines.add(boardLineReply.line);
 
-                            if (onFetchBoardProgress != null) {         // call progress callback, if set
+                            // call progress callback, if set
+                            if (onFetchBoardProgress != null) {
                                 onFetchBoardProgress.accept((double) boardLineReply.lineIndex / boardLineReply.totalCount);
                             }
                         }
@@ -308,18 +316,20 @@ public class ClientTask implements Runnable {
                 e.printStackTrace();
             }
 
-            if (lines.size() == linesTotal) {               // looks like all lines have been read, create board
+            if (lines.size() == linesTotal && linesTotal > 0) {
 
-                board = Board.fromList(lines);              // try to create board from fetched lines
+                // try to create board from fetched lines
+                board = Board.fromList(lines);
 
                 // if here, then no exception and we set state as connected
                 setState(ClientState.TRYING_TO_CONNECT_CONFIRM_READY);
 
-                if (onTryToConnectSuccess != null) {     // notify callback about success
+                // notify callback about success
+                if (onTryToConnectSuccess != null) {
                     onTryToConnectSuccess.accept("board fetched successfully");
                 }
 
-                return; // we have finished, so return from while (!timeoutForLine.occurred() && buffer == null) try
+                return;
             }
 
         } catch (Exception e) {
@@ -327,7 +337,8 @@ public class ClientTask implements Runnable {
             e.printStackTrace();
         }
 
-        setState(ClientState.TRYING_TO_DISCONNECT);         // if we've got here then isRunning == false
+        // if we've got here then isRunning == false
+        setState(ClientState.TRYING_TO_DISCONNECT);
     }
 
     /**
@@ -341,7 +352,8 @@ public class ClientTask implements Runnable {
         // for performance reasons it may be better to keep buffer allocated and just rewinding it before net read
         // and flipping after read is complete. For simplicity it is left out as is.
 
-        ByteBuffer buffer = ByteBuffer.allocate(1024);      // should be enough space for reading any server message
+        // should be enough space for reading any server message
+        ByteBuffer buffer = ByteBuffer.allocate(1024);
 
         SocketAddress source = null;
         try {
@@ -407,7 +419,7 @@ public class ClientTask implements Runnable {
         this.uniqueID = uniqueID;
     }
 
-    public synchronized SocketAddress getServerAddress() {
+    private synchronized SocketAddress getServerAddress() {
         return serverAddress;
     }
 
@@ -690,11 +702,11 @@ public class ClientTask implements Runnable {
         }
     }
 
-    public boolean isPaused() {
+    private boolean isPaused() {
         return paused;
     }
 
-    public void setPaused(boolean paused) {
+    private void setPaused(boolean paused) {
         if (paused == this.paused) return;
 
         System.out.println(paused ? "Paused" : "Unpaused");

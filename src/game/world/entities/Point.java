@@ -35,8 +35,6 @@ public class Point {
         double dy = abs(other.y - y);
 
         return sqrt(dx * dx + dy * dy);
-
-//        return getDistanceTo(this, other);
     }
 
     public static double getDistanceTo (Point from, Point to) {
@@ -53,7 +51,7 @@ public class Point {
         return getHeadingTo(this, other);
     }
 
-    public static double getHeadingTo(Point fromPos, Point toPos) {
+    private static double getHeadingTo(Point fromPos, Point toPos) {
         double dx = toPos.x - fromPos.x;
         double dy = toPos.y - fromPos.y;
 
@@ -63,7 +61,7 @@ public class Point {
 
     @Override
     public String toString() {
-        return String.format("{x=%.4f y=%.4f}", x, y);
+        return String.format("{x=%.2f y=%.2f}", x, y);
     }
 
     /**
@@ -71,7 +69,7 @@ public class Point {
      * @param heading input heading
      * @return corrected output heading in range.
      */
-    protected static double makeHeadingInRange(double heading) {
+    static double makeHeadingInRange(double heading) {
         if (Math.abs(heading) >= 360) heading = heading % 360;
         if (heading < 0) heading = 360 + heading;
 

@@ -7,8 +7,9 @@ import game.world.BoardCell;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-import static game.util.Debug.log;
-
+/**
+ *
+ */
 public class Tank extends DestructibleCollidableEntity implements Visible {
     private final Cannon cannon = new Cannon(this);
     private final Animation animation = new Animation(getTypeInfo().imageInfo);

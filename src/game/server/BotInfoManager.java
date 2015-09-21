@@ -3,8 +3,11 @@ package game.server;
 import java.util.HashSet;
 import java.util.function.Consumer;
 
-public class BotInfoManager {
-    private HashSet<BotInfo> botClientInfoSet = new HashSet<>();
+/**
+ * Holds computer player status.
+ */
+class BotInfoManager {
+    private final HashSet<BotInfo> botClientInfoSet = new HashSet<>();
 
     public int getBotCount() {
         return botClientInfoSet.size();

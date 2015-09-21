@@ -6,6 +6,9 @@ import game.world.BoardCell;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
+/**
+ * A skeleton class of entity that handles placement on board.
+ */
 abstract class PositionableEntity extends EntityBase implements Positionable {
     private double x;                                       // coordinates
     private double y;                                       //
@@ -53,11 +56,13 @@ abstract class PositionableEntity extends EntityBase implements Positionable {
 
         cell = new_cell;
 
-        if (old_cell != new_cell && old_cell != null) {     // remove only if cell changed and was valid
+        // remove only if cell changed and was valid
+        if (old_cell != new_cell && old_cell != null) {
             old_cell.removeEntity(this);
         }
 
-        if (new_cell != old_cell && new_cell != null) {     // insert only if cell changed and is valid
+        // insert only if cell changed and is valid
+        if (new_cell != old_cell && new_cell != null) {
             new_cell.insertEntity(this);
         }
 
@@ -88,7 +93,7 @@ abstract class PositionableEntity extends EntityBase implements Positionable {
      * @param heading input heading
      * @return corrected output heading in range.
      */
-    protected static double makeHeadingInRange(double heading) {
+    static double makeHeadingInRange(double heading) {
         return Point.makeHeadingInRange(heading);
     }
 
@@ -125,20 +130,30 @@ abstract class PositionableEntity extends EntityBase implements Positionable {
         return this.heading;
     }
 
-    public void writePosition(ByteBuffer dst) {
+    void writePosition(ByteBuffer dst) {
         dst.putShort( (short) getX() );
         dst.putShort( (short) getY() );
     }
 
-    public void readPosition(ByteBuffer src) {
+    void readPosition(ByteBuffer src) {
         setPos(src.getShort(), src.getShort());
     }
 
-    public void writeHeading(ByteBuffer dst) {
+    void writeHeading(ByteBuffer dst) {
         dst.putShort((short) getHeading());
     }
 
-    public void readHeading(ByteBuffer src) {
+    void readHeading(ByteBuffer src) {
         setHeading( src.getShort() );
+    }
+
+    @Override
+    public String toString() {
+        BoardCell cell = getCell();
+        if (cell == null) {
+            return String.format("%s key=%s {out of bounds}", getClass().getSimpleName(), getKey());
+        } else {
+            return String.format("%s key=%s {row=%d, col=%d}", getClass().getSimpleName(), getKey(), cell.row, cell.col);
+        }
     }
 }

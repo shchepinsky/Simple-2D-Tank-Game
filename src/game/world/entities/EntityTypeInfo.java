@@ -8,6 +8,9 @@ import game.world.Bounds;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
+/**
+ * Holds important properties of each entity class.
+ */
 public class EntityTypeInfo {
 
     public final String className;
@@ -44,11 +47,15 @@ public class EntityTypeInfo {
     }
 
     public static Entity createFromBuffer(Board board, ByteBuffer buf) {
-        byte typeIndex = buf.get(buf.position());           // get type byte from current entity
+        // get type byte from current entity
+        byte typeIndex = buf.get(buf.position());
         EntityTypeInfo entityTypeInfo = Resources.ofIndex(typeIndex);
-        UUID uuid = new UUID(0, 0);                         // uuid is not used when creating from buffer on client side
 
-        switch (entityTypeInfo.className) {                 // determine appropriate class name
+        // uuid is not used when creating from buffer on client side
+        UUID uuid = new UUID(0, 0);
+
+        // determine appropriate class name
+        switch (entityTypeInfo.className) {
             case "Tank":                return new Tank(uuid, board, buf);
             case "Enemy":               return new Enemy(uuid, board, buf);
             case "Bullet":              return new Bullet(uuid, board, buf);
@@ -56,7 +63,7 @@ public class EntityTypeInfo {
             case "MediumExplosion":     return new MediumExplosion(uuid, board, buf);
             case "SpecialExplosion":    return new SpecialExplosion(uuid, board, buf);
             default:
-                throw new IllegalArgumentException("Unknown Entity typeIndex: " + typeIndex);
+                throw new IllegalArgumentException("Unknown Entity Class: " + typeIndex);
         }
     }
 }

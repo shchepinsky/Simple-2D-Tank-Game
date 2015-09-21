@@ -14,14 +14,14 @@ import java.nio.ByteBuffer;
  * read are equal to written.
  */
 public abstract class ClientMessageBase {
-    public static final int SEND_BUFFER_MAX_SIZE = 500;
+    private static final int SEND_BUFFER_MAX_SIZE = 500;
 
     /**
      * Constructs message from ByteBuffer.
      *
      * @param srcBuffer source ByteBuffer
      */
-    public ClientMessageBase(ByteBuffer srcBuffer) {
+    ClientMessageBase(ByteBuffer srcBuffer) {
         assert srcBuffer != null : "Source buffer can't be null!";
 
         // read from start, in case caller forgot to rewind
@@ -58,7 +58,7 @@ public abstract class ClientMessageBase {
      * @param args        variable amount of arguments
      * @return ByteBuffer object with position = 0
      */
-    protected static ByteBuffer make(ClientMessageType messageType, Object... args) {
+    static ByteBuffer make(ClientMessageType messageType, Object... args) {
 
         ByteBuffer temp = ByteBuffer.allocate(SEND_BUFFER_MAX_SIZE);
 
@@ -135,7 +135,7 @@ public abstract class ClientMessageBase {
      *
      * @return messageType.
      */
-    public abstract ClientMessageType getType();
+    protected abstract ClientMessageType getType();
 
     /**
      * Subclass should implement making of ByteBuffer by using static <code>make()</code>.
@@ -150,7 +150,7 @@ public abstract class ClientMessageBase {
      * @param src source buffer to read from
      * @return string read
      */
-    protected String getString(ByteBuffer src) {
+    String getString(ByteBuffer src) {
         int size = src.getInt();
         byte[] bytes = new byte[size];
 

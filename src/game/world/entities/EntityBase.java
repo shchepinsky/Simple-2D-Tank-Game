@@ -6,7 +6,9 @@ import game.world.Board;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-// abstract entity that can be placed on board.
+/**
+ * An skeleton class of most basic entity that can be attached to board globally.
+ */
 abstract class EntityBase implements Entity {
     public static final short INVALID_UNIQUE_ID = 0;        // this is invalid ID, unique key will skip this value
     private static short uniqueKey = INVALID_UNIQUE_ID + 1; // global key counter, gives each instance it own number
@@ -70,7 +72,7 @@ abstract class EntityBase implements Entity {
         return ownerUniqueID;
     }
 
-    public void readClassIndex(ByteBuffer src) {
+    void readClassIndex(ByteBuffer src) {
         // check if this buffer has proper typeIndex
         byte type1 = src.get();
         byte type2 = indexOfClass();
@@ -81,15 +83,15 @@ abstract class EntityBase implements Entity {
         }
     }
 
-    public void writeClassIndex(ByteBuffer dst) {
+    void writeClassIndex(ByteBuffer dst) {
         dst.put(indexOfClass());
     }
 
-    public void writeKey(ByteBuffer dst) {
+    void writeKey(ByteBuffer dst) {
         dst.putShort( getKey() );
     }
 
-    public void readKey(ByteBuffer src) {
+    void readKey(ByteBuffer src) {
 
         short key1 = getKey();
         short key2 = src.getShort();
@@ -98,7 +100,6 @@ abstract class EntityBase implements Entity {
             throw new IllegalArgumentException(message);
         }
     }
-
 
     @Override
     public Entity getParent() {
@@ -119,5 +120,12 @@ abstract class EntityBase implements Entity {
 
     public byte indexOfClass() {
         return (byte) Resources.indexOfClass(this.getClass());
+    }
+
+    @Override
+    public String toString() {
+        return "EntityBase{" +
+                "key=" + key +
+                '}';
     }
 }

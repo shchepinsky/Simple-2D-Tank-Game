@@ -8,8 +8,11 @@ import java.util.*;
 
 import static game.util.Debug.log;
 
-public class PathFinderHashSet {
-    static final boolean    ALLOW_DIAGONAL_MOVEMENT = false;
+/**
+ * A-star implementation of path finding.
+ */
+public class PathFinder {
+    private static final boolean    ALLOW_DIAGONAL_MOVEMENT = false;
 
     private static class PathCell {
 
@@ -100,8 +103,8 @@ public class PathFinderHashSet {
         }
     }
 
-    final HashSet<PathCell> open     = new HashSet<>();
-    final HashSet<PathCell> closed   = new HashSet<>();
+    private final HashSet<PathCell> open     = new HashSet<>();
+    private final HashSet<PathCell> closed   = new HashSet<>();
 
     private final PathCell[][] cells;
 
@@ -139,7 +142,7 @@ public class PathFinderHashSet {
         return cells;
     }
 
-    public PathFinderHashSet(Board board) {
+    public PathFinder(Board board) {
         cells = createOfSize(board, board.getRowCount(), board.getColCount());
     }
 

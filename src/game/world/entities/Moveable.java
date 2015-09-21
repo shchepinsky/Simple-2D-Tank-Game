@@ -2,7 +2,9 @@ package game.world.entities;
 
 import game.world.BoardCell;
 
-// can be moved across board
+/**
+ * An entity that can be moved around board.
+ */
 public interface Moveable extends Positionable {
     void setMoveSpeed(double moveSpeed);
     void setOrderedSpeed(double orderedSpeed);

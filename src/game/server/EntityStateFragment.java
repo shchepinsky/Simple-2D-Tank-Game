@@ -43,19 +43,19 @@ public class EntityStateFragment {
     public EntityStateFragment(ByteBuffer srcBuf) {
         entityCount = srcBuf.getShort();
         stateBuffer = ByteBuffer.allocate(srcBuf.remaining());
-        stateBuffer.put(srcBuf);                            // copy data to stateBuffer
-        stateBuffer.flip();                                 // prepare stateBuffer for reading
+        stateBuffer.put(srcBuf);
+        stateBuffer.flip();
     }
 
     public EntityStateFragment(short entityCount, ByteBuffer statesBuffer) {
-        int original = statesBuffer.position();             // save statesBuffer position
+        int original = statesBuffer.position();
 
         this.entityCount = entityCount;
-        stateBuffer = ByteBuffer.allocate(statesBuffer.limit()); // allocate stateBuffer
-        stateBuffer.put(statesBuffer);                           // copy data from stateBuffer
+        stateBuffer = ByteBuffer.allocate(statesBuffer.limit());
+        stateBuffer.put(statesBuffer);
 
-        statesBuffer.position(original);                        // restore statesBuffer position
-        stateBuffer.flip();                                      // prepare our internal stateBuffer for reading
+        statesBuffer.position(original);
+        stateBuffer.flip();
     }
 
     public static byte getEntityTypeIndex(ByteBuffer srcBuffer) {
@@ -88,31 +88,16 @@ public class EntityStateFragment {
             entitiesInBuffer++;                             // count entities in current buffer
 
             // attach current buffer to lsit if buffer size limit reached or if there is no more entities
-            if (buf.position() > BUFFER_SIZE_THRESHOLD || entitiesProcessed==entities.size() ) {
+            if (buf.position() > BUFFER_SIZE_THRESHOLD || entitiesProcessed == entities.size()) {
                 buf.flip();                                 // set stateBuffer for reading
 
                 EntityStateFragment fragment = new EntityStateFragment(entitiesInBuffer, buf);
                 states.add(fragment);                       // add current partial state to result list
-                entitiesInBuffer=0;                         // reset quantity counter
+                entitiesInBuffer = 0;                         // reset quantity counter
                 buf.clear();                                // reset stateBuffer for new fragment
             }
         }
     }
-
-//    public static List<EntityStateFragment> makeStateFragmentList(Collection<Entity> entities) {
-//
-//        final List<EntityStateFragment> stateFragmentList = new ArrayList<>();
-//
-//        appendStateFragments(entities, stateFragmentList);
-//
-//        // special case if no entities present - i send empty state list
-//        if (stateFragmentList.size() == 0) {
-//            EntityStateFragment fragment = new EntityStateFragment( (short) 0, ByteBuffer.allocate(0));
-//            stateFragmentList.add(fragment);                // add dummy state to result list
-//        }
-//
-//        return stateFragmentList;
-//    }
 
 
 }

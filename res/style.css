@@ -21,7 +21,7 @@
 }
 
 .label#title-small .text {
-    -fx-font-size: 24;
+    -fx-font-size: 2em;
     -fx-font-weight: bold;
 
     -fx-stroke: beige;
@@ -31,7 +31,7 @@
 }
 
 .label#title .text {
-    -fx-font-size: 48;
+    -fx-font-size: 3em;
     -fx-font-weight: bold;
 
     -fx-stroke: beige;
@@ -42,12 +42,8 @@
 }
 
 .text-field, .combo-box, .choice-box, .button {
-    -fx-pref-width: 100;
+    -fx-pref-width: 200;
     -fx-pref-height: 16;
-}
-
-.button {
-    -fx-pref-width: 150;
 }
 
 .button:hover, .combo-box:hover, .choice-box:hover, .list-view:hover {
@@ -56,8 +52,5 @@
 }
 
 .button:hover .text {
-/*
-    -fx-effect: dropshadow(three-pass-box, gray, 3, 0, 0, 0);
-*/
     -fx-fill: black;
 }

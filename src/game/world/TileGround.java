@@ -10,8 +10,8 @@ public class TileGround {
     public final String ID;
     public final ImageFrameInfo imageFrame;
     public final int frameIndex;
-    public final double moveObstacle;
-    public final double shootObstacle;
+    private final double moveObstacle;
+    private final double shootObstacle;
 
     protected TileGround(String id, String imageFrameID, int frameIndex, double moveObstacle, double shootObstacle) {
         ID = id;

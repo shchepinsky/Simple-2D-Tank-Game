@@ -6,8 +6,8 @@ import java.nio.ByteBuffer;
  * Optional message, confirming that client is logged out from server.
  */
 public class ClientExitAccept extends ServerMessageBase {
-    public final String clientName;
-    public final String uniqueID;
+    private final String clientName;
+    private final String uniqueID;
 
     public ClientExitAccept(String clientName, String uniqueID) {
         this.clientName = clientName;

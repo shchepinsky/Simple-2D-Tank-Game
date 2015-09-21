@@ -14,7 +14,10 @@ import java.util.Scanner;
 
 import static game.util.Debug.log;
 
-public class Resources {
+/**
+ * Initialized all resources.
+ */
+public abstract class Resources {
 
     private static final HashMap<String, Image> images = new HashMap<>();
     private static final HashMap<String, ImageFrameInfo> frameInfo = new HashMap<>();
@@ -172,7 +175,7 @@ public class Resources {
         typeMap.put(className, entityTypeInfo);
     }
 
-    public static EntityTypeInfo ofClassName(String className) {
+    private static EntityTypeInfo ofClassName(String className) {
         return typeMap.get(className);
     }
 
@@ -180,7 +183,7 @@ public class Resources {
         return ofClassName(clazz.getSimpleName());
     }
 
-    public static int indexOfClassName(String className) {
+    private static int indexOfClassName(String className) {
         return typeArray.indexOf(className);
     }
 

@@ -10,8 +10,8 @@ public class TileOverlay {
     public final String ID;
     public final ImageFrameInfo imageFrame;
     public final int frameIndex;
-    public final double moveObstacle;
-    public final double shootObstacle;
+    private final double moveObstacle;
+    private final double shootObstacle;
     public final String bounds;
 
     private final String flags;

@@ -17,7 +17,7 @@ public class RateCounter {
         return refreshInterval;
     }
 
-    public void setRefreshInterval(long refreshInterval) {
+    private void setRefreshInterval(long refreshInterval) {
         this.refreshInterval = refreshInterval;
     }
 
@@ -32,7 +32,7 @@ public class RateCounter {
      * Constructor with arbitrary refresh interval.
      * @param refreshInterval rate refresh interval in milliseconds.
      */
-    public RateCounter(long refreshInterval) {
+    private RateCounter(long refreshInterval) {
         setRefreshInterval(refreshInterval);
     }
 

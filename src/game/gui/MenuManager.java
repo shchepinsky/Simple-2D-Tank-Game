@@ -27,7 +27,7 @@ public class MenuManager {
     private MenuBase menuActive;
 
     public MenuBase menuMain;
-    public MenuBase menuStartServer;
+    private MenuBase menuStartServer;
     public MenuGameScreen menuGameScreen;
     public MenuWhilePlaying menuWhilePlaying;
 

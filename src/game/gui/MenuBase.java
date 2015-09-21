@@ -13,14 +13,14 @@ import javafx.scene.layout.*;
  */
 public abstract class MenuBase {
     private boolean active = false;
-    public boolean isActive() { return active; }
+    boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
 
     private MenuManager menuManager;
     MenuManager getMenuManager() { return menuManager; }
 
     private final ImageView background = new ImageView();
-    public ImageView getBackground() { return background; }
+    private ImageView getBackground() { return background; }
 
     private final Pane root = new StackPane();
     public Pane getRoot() { return root; }
@@ -58,7 +58,7 @@ public abstract class MenuBase {
      * @param backgroundImage image to use as background, can be set to
      *                        null if no image required
      */
-    public MenuBase(MenuManager menuManager, Image backgroundImage) {
+    MenuBase(MenuManager menuManager, Image backgroundImage) {
         assert menuManager != null : "menuManager can not be null";
 
         this.menuManager = menuManager;

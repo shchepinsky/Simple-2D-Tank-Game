@@ -2,6 +2,9 @@ package game.graphics;
 
 import game.world.BoardCell;
 
+/**
+ * Manages virtual view port and it's position inside bounds.
+ */
 public enum ViewPort {
     INSTANCE;
 
@@ -33,7 +36,7 @@ public enum ViewPort {
         maxViewPosY = y2 - getViewHeight();
     }
 
-    public synchronized void locateTo(double x, double y) {
+    private synchronized void locateTo(double x, double y) {
         setViewPosX(x);
         setViewPosY(y);
         keepInBounds();
@@ -70,7 +73,7 @@ public enum ViewPort {
         return viewPosX;
     }
 
-    public synchronized void setViewPosX(double viewPosX) {
+    private synchronized void setViewPosX(double viewPosX) {
         this.viewPosX = viewPosX;
     }
 
@@ -78,7 +81,7 @@ public enum ViewPort {
         return viewPosY;
     }
 
-    public synchronized void setViewPosY(double yPos) {
+    private synchronized void setViewPosY(double yPos) {
         this.viewPosY = yPos;
     }
 
@@ -86,7 +89,7 @@ public enum ViewPort {
         return viewWidth;
     }
 
-    public synchronized void setViewWidth(double viewWidth) {
+    private synchronized void setViewWidth(double viewWidth) {
         maxViewPosX = maxViewPosX + getViewWidth() - viewWidth;     // if view viewWidth changes - update max x limit
         this.viewWidth = viewWidth;
     }
@@ -95,7 +98,7 @@ public enum ViewPort {
         return viewHeight;
     }
 
-    public synchronized void setViewHeight(double viewHeight) {
+    private synchronized void setViewHeight(double viewHeight) {
         maxViewPosY = maxViewPosY + getViewHeight() - viewHeight;   // if view viewHeight changes - update max y limit
         this.viewHeight = viewHeight;
     }

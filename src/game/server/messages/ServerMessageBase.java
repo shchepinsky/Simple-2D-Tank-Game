@@ -20,7 +20,7 @@ public abstract class ServerMessageBase {
      * Constructs message from ByteBuffer.
      * @param srcBuffer source ByteBuffer
      */
-    public ServerMessageBase(ByteBuffer srcBuffer) {
+    ServerMessageBase(ByteBuffer srcBuffer) {
         assert srcBuffer != null:"Source buffer can't be null!";
 
         srcBuffer.rewind(); // read from start, in case caller forgot to rewind
@@ -31,7 +31,7 @@ public abstract class ServerMessageBase {
         }
     }
 
-    protected ServerMessageBase() {
+    ServerMessageBase() {
 
     }
 
@@ -39,7 +39,7 @@ public abstract class ServerMessageBase {
      * Gets actual messageType. Should be implemented by subclass.
      * @return messageType.
      */
-    public abstract ServerMessageType getType();
+    protected abstract ServerMessageType getType();
 
     /**
      * Subclass should implement making of ByteBuffer. Static make() is
@@ -66,7 +66,7 @@ public abstract class ServerMessageBase {
      * @param args        variable amount of arguments
      * @return ByteBuffer object with position = 0
      */
-    protected static ByteBuffer make(ServerMessageType messageType, Object... args) {
+    static ByteBuffer make(ServerMessageType messageType, Object... args) {
 
         ByteBuffer temp = ByteBuffer.allocate(SEND_BUFFER_MAX_SIZE);
 
@@ -153,7 +153,7 @@ public abstract class ServerMessageBase {
      * @param src source buffer to read from
      * @return string read
      */
-    protected String getString(ByteBuffer src) {
+    String getString(ByteBuffer src) {
         int size = src.getInt();
         byte[] bytes = new byte[size];
         try {

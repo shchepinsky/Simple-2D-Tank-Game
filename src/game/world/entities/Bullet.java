@@ -7,16 +7,21 @@ import game.world.BoardCell;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-import static game.util.Debug.log;
-
+/**
+ * An entity that can damage other entities by colliding with thenm.
+ */
 public class Bullet extends DestructibleCollidableEntity implements Visible {
     private final Animation animation = new Animation(getTypeInfo().imageInfo);
     private int lifetime = getTypeInfo().maxLifetime;
 
     public Bullet(UUID ownerUniqueID, Board board) {
         super(ownerUniqueID, board);
-        setOrderedSpeed(getTypeInfo().maxForwardSpeed);     // bullet is spawned with maximum ordered speed
-        setMoveSpeed(getOrderedSpeed());                    // and accelerate instantly
+
+        // bullet is spawned with maximum ordered speed
+        setOrderedSpeed(getTypeInfo().maxForwardSpeed);
+
+        // and accelerate instantly
+        setMoveSpeed(getOrderedSpeed());
     }
 
     public Bullet(UUID ownerUniqueID, Board board, ByteBuffer src) {
@@ -101,7 +106,8 @@ public class Bullet extends DestructibleCollidableEntity implements Visible {
 
     @Override
     public void collideWith(Collidable other) {
-        takeDamage(getHitPoints());                         // remove HitPoints by damaging
+        // bullet hit something - remove HitPoints by damaging
+        takeDamage(getHitPoints());
     }
 
     @Override

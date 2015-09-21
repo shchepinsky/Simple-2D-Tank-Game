@@ -1,11 +1,9 @@
 package game.server;
 
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.util.UUID;
 
-public final class BotInfo {
-    public static final int MAX_SPAWN_DELAY = 1000;
+final class BotInfo {
+    private static final int MAX_SPAWN_DELAY = 1000;
 
     public final String name;
     public final UUID uniqueID;

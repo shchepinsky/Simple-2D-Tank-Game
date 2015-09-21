@@ -3,6 +3,9 @@ package game.graphics;
 import game.Resources;
 import javafx.scene.image.Image;
 
+/**
+ * Holds information about graphic resource.
+ */
 public class ImageFrameInfo {
     private static final int TILE_INFO_COLUMNS = 6;
 
@@ -14,43 +17,43 @@ public class ImageFrameInfo {
     public String getFileName() {
         return fileName;
     }
-    public void setFileName(String fileName) {
+    private void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
     private int frameWidth;
     public int getFrameWidth() { return frameWidth; }
-    public void setFrameWidth(int frameWidth) {
+    private void setFrameWidth(int frameWidth) {
         this.frameWidth = frameWidth;
     }
 
     private int frameHeight;
     public int getFrameHeight() { return frameHeight; }
-    public void setFrameHeight(int frameHeight) {
+    private void setFrameHeight(int frameHeight) {
         this.frameHeight = frameHeight;
     }
 
     private ImageType imageType;
     public ImageType getImageType() { return imageType; }
-    public void setImageType(ImageType imageType) {
+    private void setImageType(ImageType imageType) {
         this.imageType = imageType;
     }
 
     private int rotationFrameCount;
     public int getRotationFrameCount() { return rotationFrameCount; }
-    public void setRotationFrameCount(int rotationFrameCount) {
+    private void setRotationFrameCount(int rotationFrameCount) {
         this.rotationFrameCount = rotationFrameCount;
     }
 
     private int animationFrameCount;
     public int getAnimationFrameCount() { return animationFrameCount; }
-    public void setAnimationFrameCount(int animationFrameCount) {
+    private void setAnimationFrameCount(int animationFrameCount) {
         this.animationFrameCount = animationFrameCount;
     }
 
     private int animationFrameDelay;
     public int getAnimationFrameDelay() { return animationFrameDelay; }
-    public void setAnimationFrameDelay(int animationFrameDelay) {
+    private void setAnimationFrameDelay(int animationFrameDelay) {
         this.animationFrameDelay = animationFrameDelay;
     }
 
@@ -58,7 +61,7 @@ public class ImageFrameInfo {
     public boolean isAnimationLooped() {
         return animationLoop;
     }
-    public void setAnimationLoop(boolean animationLoop) {
+    private void setAnimationLoop(boolean animationLoop) {
         this.animationLoop = animationLoop;
     }
 
@@ -66,7 +69,7 @@ public class ImageFrameInfo {
 
     }
 
-    public int getFramesPerRow() {
+    private int getFramesPerRow() {
         Image image = Resources.getImage(imageID);
         return ImageFrameInfo.getFramesPerRow(image, frameWidth);
     }
@@ -142,7 +145,7 @@ public class ImageFrameInfo {
         return result;
     }
 
-    public static int getFramesPerRow(Image image, int frameW) {
+    private static int getFramesPerRow(Image image, int frameW) {
         return (int) image.getWidth() / frameW;
     }
 

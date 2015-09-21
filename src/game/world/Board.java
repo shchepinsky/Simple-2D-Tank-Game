@@ -1,7 +1,6 @@
 package game.world;
 
 import game.Resources;
-import game.util.Debug;
 import game.world.entities.*;
 
 import java.io.BufferedReader;
@@ -14,9 +13,7 @@ import java.util.function.Predicate;
 import static game.util.Debug.log;
 
 /**
- * Game board class, manages entities and map accordingly to external time source.
- * Read-accessed by rendering thread and write-accessed by client thread.
- * Review synchronization required when ClientTask is interacting with this.
+ * Game board class, contains cells and entity list.
  */
 public class Board {
 
@@ -31,7 +28,7 @@ public class Board {
     private final List<String> rawLines = new ArrayList<>();
     private final List<SpawnPoint> spawnPoints = new ArrayList<>();
     private final BoardCell[][] cells;
-    private PathFinderHashSet pathFinder;
+    private PathFinder pathFinder;
 
     /**
      * Constructor is hidden in favour of static factories
@@ -142,7 +139,6 @@ public class Board {
 
         return cells;
     }
-//    private int time;
 
     /**
      * Static factory method to create Board instance from list of rawLines.
@@ -183,10 +179,10 @@ public class Board {
         return Board.fromList(list);
     }
 
-    public PathFinderHashSet getPathFinder() {
+    public PathFinder getPathFinder() {
         // lazily initializing single instance of A* pathfinder
         if (pathFinder == null) {
-            pathFinder = new PathFinderHashSet(this);
+            pathFinder = new PathFinder(this);
         }
 
         return pathFinder;
@@ -301,7 +297,7 @@ public class Board {
         removeActiveEntity(e);
     }
 
-    public void removeActiveEntity(Entity e) {
+    private void removeActiveEntity(Entity e) {
         if (e instanceof Positionable) {
             Positionable p = (Positionable) e;
 
@@ -315,7 +311,7 @@ public class Board {
         activeEntities.remove(e.getKey());                  // remove from global list
     }
 
-    public void registerInactiveEntity(Entity e) {
+    private void registerInactiveEntity(Entity e) {
         inactiveEntities.put(e.getKey(), e);
     }
 
@@ -456,27 +452,5 @@ public class Board {
 
     public Collection<Entity> getNewEntitiesUnmodifiable() {
         return Collections.unmodifiableCollection(newEntities.values());
-    }
-
-    public static class SpawnPoint {
-        public final int row;
-        public final int col;
-
-        private SpawnPoint(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-
-        public Point getPos() {
-            return new Point(getPosX(), getPosY());
-        }
-
-        private int getPosX() {
-            return col * BoardCell.CELL_SIZE + BoardCell.CELL_SIZE / 2;
-        }
-
-        private int getPosY() {
-            return row * BoardCell.CELL_SIZE + BoardCell.CELL_SIZE / 2;
-        }
     }
 }

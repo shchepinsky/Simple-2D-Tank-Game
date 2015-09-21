@@ -8,6 +8,9 @@ import java.util.UUID;
 
 import static java.lang.Math.*;
 
+/**
+ * An skeleton class of entity that handles movements.
+ */
 public abstract class MoveableEntity extends PositionableEntity implements Moveable {
     private double orderedHeading;                          // this is heading that requested by player
 
@@ -57,7 +60,7 @@ public abstract class MoveableEntity extends PositionableEntity implements Movea
         return 0;
     }
 
-    public double distanceTravelled() {
+    private double distanceTravelled() {
         return distanceTravelled;
     }
 
@@ -143,7 +146,7 @@ public abstract class MoveableEntity extends PositionableEntity implements Movea
         }
     }
 
-    protected double getNextSpeed() {
+    double getNextSpeed() {
         double newSpeed = 0.0;
         if (getHeading() != getOrderedHeading()) return newSpeed;
 
@@ -158,11 +161,11 @@ public abstract class MoveableEntity extends PositionableEntity implements Movea
         return newSpeed;
     }
 
-    protected double getNextHeading() {
+    double getNextHeading() {
         return doTurn(getHeading(), getOrderedHeading(), getTypeInfo().maxTurnSpeed);
     }
 
-    protected Point getNextPosition() {
+    Point getNextPosition() {
         double speed = getMoveSpeed();
 
         double nx = getX() + sin(toRadians(getHeading())) * speed;
@@ -180,7 +183,7 @@ public abstract class MoveableEntity extends PositionableEntity implements Movea
      * @param to   target direction in degrees.
      * @return +1 if best it is to turn clockwise, -1 if counterclockwise or 0 no turn required.
      */
-    int getBestTurnDirection(double from, double to) {
+    private int getBestTurnDirection(double from, double to) {
         from = makeHeadingInRange(from);
         to = makeHeadingInRange(to);
 
@@ -211,7 +214,7 @@ public abstract class MoveableEntity extends PositionableEntity implements Movea
      * @param MAX_TURN_SPEED maximum turn speed for this step.
      * @return returns new heading in range.
      */
-    protected double doTurn(double heading, double orderedHeading, final double MAX_TURN_SPEED) {
+    private double doTurn(double heading, double orderedHeading, final double MAX_TURN_SPEED) {
         switch (getBestTurnDirection(heading, orderedHeading)) {
             case +1: {
                 double newHeading = makeHeadingInRange(heading + MAX_TURN_SPEED);
@@ -240,32 +243,32 @@ public abstract class MoveableEntity extends PositionableEntity implements Movea
 
     protected abstract boolean canCrossBoardBounds();
 
-    public void writeMoveSpeed(ByteBuffer dst) {
+    void writeMoveSpeed(ByteBuffer dst) {
         dst.putShort((short) (getMoveSpeed() * 1000));
     }
 
-    public void readMoveSpeed(ByteBuffer src) {
+    void readMoveSpeed(ByteBuffer src) {
         setMoveSpeed(src.getShort() / 1000.0);
     }
 
 
-    public void writeOrderedSpeed(ByteBuffer dst) {
+    void writeOrderedSpeed(ByteBuffer dst) {
         dst.putShort((short) (getOrderedSpeed() * 1000));
     }
 
-    public void readOrderedSpeed(ByteBuffer src) {
+    void readOrderedSpeed(ByteBuffer src) {
         setOrderedSpeed(src.getShort() / 1000.0);
     }
 
-    public void writeOrderedHeading(ByteBuffer dst) {
+    void writeOrderedHeading(ByteBuffer dst) {
         dst.putShort((short) getOrderedHeading());
     }
 
-    public void readOrderedHeading(ByteBuffer src) {
+    void readOrderedHeading(ByteBuffer src) {
         setOrderedHeading(src.getShort());
     }
 
-    public boolean rangeExceeded() {
+    boolean rangeExceeded() {
         return distanceTravelled() > getTypeInfo().maxRange;
     }
 }

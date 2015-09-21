@@ -16,10 +16,10 @@ public class Bounds {
         public boolean collisionOccurred() { return xAxisCollision && yAxisCollision; }
     }
 
-    public final double x1;
-    public final double y1;
-    public final double x2;
-    public final double y2;
+    private final double x1;
+    private final double y1;
+    private final double x2;
+    private final double y2;
 
     private Bounds(double x1, double y1, double x2, double y2) {
         this.x1 = Math.min(x1, x2);
@@ -73,7 +73,7 @@ public class Bounds {
      * @param height height of bounds.
      * @return new instance of bounds.
      */
-    public static Bounds fromCenterAndSize(double cx, double cy, double width, double height) {
+    private static Bounds fromCenterAndSize(double cx, double cy, double width, double height) {
         return new Bounds(cx - width / 2, cy - height / 2, cx + width / 2, cy + height / 2);
     }
 
@@ -103,7 +103,7 @@ public class Bounds {
         return new Bounds(x1, y1, x2, y2);
     }
 
-    public static Bounds fromBoundsCentered(Bounds bounds, double center_x, double center_y) {
+    private static Bounds fromBoundsCentered(Bounds bounds, double center_x, double center_y) {
         return fromCenterAndSize(center_x, center_y, bounds.getWidth(), bounds.getHeight());
     }
 
@@ -167,7 +167,7 @@ public class Bounds {
         return overlap(this, others);
     }
 
-    public static boolean overlap(Bounds bounds, Bounds other) {
+    private static boolean overlap(Bounds bounds, Bounds other) {
 
         double x1 = bounds.getX();
         double y1 = bounds.getY();
@@ -186,7 +186,7 @@ public class Bounds {
         return xIntersect && yIntersect;
     }
 
-    public static boolean overlap(Bounds bounds, List<Bounds> others) {
+    private static boolean overlap(Bounds bounds, List<Bounds> others) {
 
         for (Bounds other : others) {
             if (bounds.overlap(other)) return true;

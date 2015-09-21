@@ -6,10 +6,13 @@ import game.world.BoardCell;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
+/**
+ * An entity that is under computer's control.
+ */
 public class Enemy extends Tank {
     private boolean computerControlled;
 
-    private EnemyBotAI botAI;
+    private final EnemyBotAI botAI;
 
     public Enemy(UUID ownerUniqueID, Board board) {
         super(ownerUniqueID, board);
@@ -30,13 +33,13 @@ public class Enemy extends Tank {
     @Override
     public void update() {
         if (isComputerControlled()) {
-            botAI.update(); // set calculate AI orders
+            botAI.update();
         }
 
-        super.update(); // move to nearby cell
+        super.update();
     }
 
-    public boolean isComputerControlled() {
+    private boolean isComputerControlled() {
         return computerControlled;
     }
 

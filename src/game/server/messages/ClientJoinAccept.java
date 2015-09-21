@@ -9,7 +9,7 @@ import java.nio.ByteBuffer;
 public class ClientJoinAccept extends ServerMessageBase {
 
     public final String uniqueID;
-    public final String acceptMessage;
+    private final String acceptMessage;
 
     public ClientJoinAccept(String uniqueID, String acceptMessage) {
         this.uniqueID = uniqueID;

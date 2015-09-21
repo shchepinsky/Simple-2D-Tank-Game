@@ -5,7 +5,10 @@ import game.world.Board;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-public class SmallExplosion extends Explosion {
+/**
+ * Marker class for small explosion.
+ */
+class SmallExplosion extends Explosion {
 
     public SmallExplosion(UUID ownerUniqueID, Board board) {
         super(ownerUniqueID, board);

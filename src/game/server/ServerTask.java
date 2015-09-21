@@ -27,8 +27,8 @@ import static game.util.Debug.log;
  */
 public class ServerTask implements Runnable {
     public static final int DEFAULT_UDP_PORT = 20000;       //
-    public static final int WORLD_STATE_SEND_RATE = 10;     // target rate to send state to clients
-    public static final int SERVER_LOOP_RATE = 200;         // target rate to cycle run()
+    private static final int WORLD_STATE_SEND_RATE = 10;     // target rate to send state to clients
+    private static final int SERVER_LOOP_RATE = 200;         // target rate to cycle run()
     private final Board board;                                                  // board object holds all entities
     private final TimeFlow timeFlow = new TimeFlow();                           // converts real time into board time
     private final RateCounter loopRate = new RateCounter();                     // used to count Run() loop rate
@@ -93,8 +93,10 @@ public class ServerTask implements Runnable {
 
     @Override
     public void run() {
-        setRunning(true);                                   // while loop flag
-        timeOfStart = TimeFlow.systemTime();                // remember time of start, for uptime calculation
+        setRunning(true);
+
+        // remember time of start, for uptime calculation
+        timeOfStart = TimeFlow.systemTime();
 
         try {
             log("server %s - started", channel.getLocalAddress());
@@ -126,7 +128,7 @@ public class ServerTask implements Runnable {
                 logicTime = logicTime + elapsed;            // this is internal logic time counter, for debug info
 
                 if (worldStateRefreshTimeout.occurred()) {  // check if it is time to send updates to clients
-                    processActiveEntities();              // calculate and send state update
+                    processActiveEntities();                // calculate and send state update
                     worldStateRefreshTimeout.reset();       // reset timer after state is sent
                 }
 
@@ -154,7 +156,8 @@ public class ServerTask implements Runnable {
     }
 
     private void processInactiveEntities() {
-        if (channel == null || !channel.isOpen()) {         // check if network channel is up
+        // check if network channel is up
+        if (channel == null || !channel.isOpen()) {
             return;
         }
 
@@ -162,7 +165,7 @@ public class ServerTask implements Runnable {
         List<EntityStateFragment> stateFragments = new ArrayList<>();
 
         EntityStateFragment.appendStateFragments(inactive, stateFragments);
-        sendStateFragmentsToClients(stateFragments);        // send initial states of new entities to all clients
+        sendStateFragmentsToClients(stateFragments);
 
         // remove flush inactive entity list after sending
         // this should be done after making state buffer
@@ -170,7 +173,8 @@ public class ServerTask implements Runnable {
     }
 
     private void processNewEntities() {
-        if (channel == null || !channel.isOpen()) {         // check if network channel is up
+        // check if network channel is up
+        if (channel == null || !channel.isOpen()) {
             return;
         }
 
@@ -281,7 +285,8 @@ public class ServerTask implements Runnable {
      * Sends board state buffers to clients.
      */
     private void processActiveEntities() {
-        if (channel == null || !channel.isOpen()) {         // check if network channel is up
+        // check if network channel is up
+        if (channel == null || !channel.isOpen()) {
             return;
         }
 
@@ -578,7 +583,7 @@ public class ServerTask implements Runnable {
         return running;
     }
 
-    public void setRunning(boolean running) {
+    private void setRunning(boolean running) {
         this.running = running;
     }
 

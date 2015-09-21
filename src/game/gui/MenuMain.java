@@ -24,8 +24,8 @@ import static game.util.Debug.log;
  */
 public class MenuMain extends MenuBase {
 
-    public static final String DEFAULT_PLAYER_NAME          = "player";
-    public static final String DEFAULT_MAP_RESOURCE_NAME    = "/map.txt";
+    private static final String DEFAULT_PLAYER_NAME          = "player";
+    private static final String DEFAULT_MAP_RESOURCE_NAME    = "/map.txt";
 
     /**
      * Constructs overlay with given background. Background image is stretched

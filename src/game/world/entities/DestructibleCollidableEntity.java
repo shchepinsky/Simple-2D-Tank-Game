@@ -5,6 +5,9 @@ import game.world.Board;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
+/**
+ * An skeleton class of moving entity that can be destroyed.
+ */
 public abstract class DestructibleCollidableEntity extends CollidableMovableEntity implements Destructible {
 
     private byte hitPoints;
@@ -42,11 +45,11 @@ public abstract class DestructibleCollidableEntity extends CollidableMovableEnti
         return isDead();
     }
 
-    public void writeHitPoints(ByteBuffer dst) {
+    void writeHitPoints(ByteBuffer dst) {
         dst.put( getHitPoints() );
     }
 
-    public void readHitPoints(ByteBuffer src) {
+    void readHitPoints(ByteBuffer src) {
         this.hitPoints = src.get();
     }
 }

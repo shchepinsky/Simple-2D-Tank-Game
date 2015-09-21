@@ -3,8 +3,11 @@ package game.server;
 import java.net.SocketAddress;
 import java.util.UUID;
 
+/**
+ * Holds client login info and status.
+ */
 public final class ClientInfo {
-    public static final int MAX_SPAWN_DELAY = 1000;
+    private static final int MAX_SPAWN_DELAY = 1000;
 
     public final String name;
     public final UUID uniqueID;

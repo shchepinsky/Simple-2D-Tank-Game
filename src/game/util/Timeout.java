@@ -1,5 +1,8 @@
 package game.util;
 
+/**
+ * Utility class used to check for timeout happened.
+ */
 public class Timeout {
     private long timeoutTime;
     private long startTime;
@@ -35,7 +38,7 @@ public class Timeout {
      * @param nowTimeMillis current time in milliseconds.
      * @return true if amount of time passed is greater than timeout or false otherwise.
      */
-    public boolean occurred(long nowTimeMillis) {
+    private boolean occurred(long nowTimeMillis) {
         runningTime = nowTimeMillis - startTime;
         return runningTime > timeoutTime;
     }

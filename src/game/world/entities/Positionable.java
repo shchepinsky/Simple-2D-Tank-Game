@@ -2,7 +2,9 @@ package game.world.entities;
 
 import game.world.BoardCell;
 
-// can be placed on board at specific position
+/**
+ * An entity that can be placed on board at concrete position.
+ */
 public interface Positionable extends Entity {
     BoardCell getCell();
 

@@ -1,12 +1,13 @@
 package game.world.entities;
 
-import game.Resources;
 import game.world.Board;
 
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-// an invisible global board entity, can update it's internal state
+/**
+ * An invisible global board entity that update it's internal state and read/write it's state to buffer.
+ */
 public interface Entity {
     Board getBoard();
 

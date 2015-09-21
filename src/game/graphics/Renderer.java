@@ -12,12 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Renders visuals like board map, grid, entities and console info.
+ */
 public enum Renderer {
     INSTANCE;
 
@@ -127,7 +129,11 @@ public enum Renderer {
         List<String> lines = new ArrayList<>();
         Tank m = (Tank) entity;
 
-        lines.add(String.format("Position: %s", entity.getPos()));
+        BoardCell cell = m.getCell();
+        String cs = cell == null ? "out of bounds" : String.format("row=%d, col=%d", cell.row, cell.col);
+
+        lines.add(String.format("Key: %d, Hit Points: %d", m.getKey(), m.getHitPoints()));
+        lines.add(String.format("Position: %s, %s", m.getPos(), cs));
         lines.add(String.format("Heading: %.1f Ordered: %.1f", m.getHeading(), m.getOrderedHeading()));
         lines.add(String.format("Speed: %.1f px/sec Ordered: %.1f px/sec", m.getMoveSpeed() * 1000, m.getOrderedSpeed() * 1000));
 
@@ -154,7 +160,6 @@ public enum Renderer {
         gc.setFill(Color.YELLOW);
 
         for (String line : lines) {
-            final Text text = new Text(line);
             gc.fillText(line, tx + 1, getLineHeight(gc) * 0.75 + ty);
             ty = ty + getLineHeight(gc);
         }
@@ -298,13 +303,13 @@ public enum Renderer {
 
         gc.save();
 
-        gc.setFont(Font.font("Calibri", FontWeight.BOLD, 12));
+        gc.setFont(Font.font("Calibri", FontWeight.BOLD, 10));
         gc.setFill(Color.YELLOW);
 
         double lineHeight = getLineHeight(gc);
         double x1 = gc.getCanvas().getWidth();
-        double y1 = lineHeight * console.size() - 4;
-        gc.setFill(Color.rgb(0, 0, 0, 0.3));
+        double y1 = lineHeight * console.size();
+        gc.setFill(Color.rgb(0, 0, 0, 0.5));
         gc.fillRect(0, 0, x1, y1);
 
         gc.setStroke(Color.BLACK);
@@ -330,12 +335,12 @@ public enum Renderer {
 
     private static float getLineWidth(GraphicsContext gc, String text) {
         FontLoader fl = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader();
-        return fl.getFontMetrics(gc.getFont()).computeStringWidth(text) + 2;
+        return fl.getFontMetrics(gc.getFont()).computeStringWidth(text);
     }
 
     private static float getLineHeight(GraphicsContext gc) {
         FontLoader fl = com.sun.javafx.tk.Toolkit.getToolkit().getFontLoader();
-        return fl.getFontMetrics(gc.getFont()).getLineHeight() - 3;
+        return fl.getFontMetrics(gc.getFont()).getLineHeight();
     }
 
     private static void renderMap(GraphicsContext gc) {
@@ -410,12 +415,8 @@ public enum Renderer {
         gc.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
     }
 
-    public boolean isWaypointsVisible() {
+    private boolean isWaypointsVisible() {
         return waypointsVisible;
-    }
-
-    public void setWaypointsVisible(boolean waypointsVisible) {
-        this.waypointsVisible = waypointsVisible;
     }
 
     public boolean isConsoleTextVisible() {

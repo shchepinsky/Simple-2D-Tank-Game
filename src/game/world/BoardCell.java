@@ -4,11 +4,13 @@ import game.Resources;
 import game.world.entities.Entity;
 import game.world.entities.Point;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * A single board cell.
+ */
 public class BoardCell {
     public static final int CELL_SIZE = 32;
 
@@ -83,19 +85,19 @@ public class BoardCell {
         return Collections.unmodifiableSet(entities);
     }
 
-    public static int colToX(int col) {
+    private static int colToX(int col) {
         return col * CELL_SIZE;
     }
 
-    public static int rowToY(int row) {
+    private static int rowToY(int row) {
         return row * CELL_SIZE;
     }
 
-    public int colToX() {
+    private int colToX() {
         return BoardCell.colToX(col);
     }
 
-    public int rowToY() {
+    private int rowToY() {
         return BoardCell.rowToY(row);
     }
 

@@ -8,8 +8,9 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.UUID;
 
-import static game.util.Debug.log;
-
+/**
+ * A skeleton class of movable entity that can collide with other entities.
+ */
 abstract class CollidableMovableEntity extends MoveableEntity implements Collidable {
 
     CollidableMovableEntity(UUID ownerUniqueID, Board board) {
@@ -90,7 +91,7 @@ abstract class CollidableMovableEntity extends MoveableEntity implements Collida
         }
     }
 
-    boolean boundsOutsideBoardAt(double x, double y) {
+    private boolean boundsOutsideBoardAt(double x, double y) {
         Bounds newBounds = getBounds().centered(x,y);
 
         double x1 = Math.min(newBounds.getX(), newBounds.getX() + newBounds.getWidth());
