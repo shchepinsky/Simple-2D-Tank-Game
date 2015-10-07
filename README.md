@@ -1,4 +1,4 @@
-A simple 2D game created for fun and self-edicational purposes.
+A simple 2D game created for fun and self-educational purposes.
 Topics touched:
 
 1. Java language: exception handling, collections, interfaces, lambdas, threads, datagram channels, timing.
